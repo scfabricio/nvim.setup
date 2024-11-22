@@ -19,6 +19,13 @@ require('oil').setup({
 vim.keymap.set("n", "<leader>o", ":Oil<CR>", { desc = "Abrir Oil no diretório atual" })
 
 -- Atalho para abrir Oil em um diretório específico
-vim.keymap.set("n", "<leader>O", ":Oil ~/caminho/para/diretorio<CR>", { desc = "Abrir Oil em um diretório específico" })
+vim.keymap.set("n", "<leader>O", function()
+  local current_dir = vim.fn.getcwd() -- Obtém o diretório atual
+  local target_dir = vim.fn.input("Abrir Oil em: ", current_dir, "file") -- Exibe uma entrada pré-preenchida com o diretório atual
+  if target_dir ~= "" then
+    vim.cmd("cd " .. target_dir)
+    require("oil").open(target_dir) -- Abre o Oil no diretório especificado
+  end
+end, { desc = "Abrir Oil em um diretório com edição" })
 
 require("nvim-web-devicons").setup();
