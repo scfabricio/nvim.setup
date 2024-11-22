@@ -26,18 +26,17 @@ require('packer').startup(function(use)
   }
 
   -- Oil
-  require("packer").startup(function()
-    use({
-      "stevearc/oil.nvim",
-      config = function()
-        require("oil").setup()
-      end,
-    })
-  end)
+  use({
+    "stevearc/oil.nvim",
+    config = function()
+      require("oil").setup()
+    end,
+  })
 
   use 'stevearc/oil.nvim' -- Plugin Oil
   use 'nvim-tree/nvim-web-devicons' -- Ícones para arquivos e diretórios
 
+  use 'tpope/vim-fugitive' -- Fugitive
 end)
 
 require("mason").setup()
