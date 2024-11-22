@@ -42,9 +42,13 @@ require('packer').startup(function(use)
   use('neovim/nvim-lspconfig')
   use('jose-elias-alvarez/null-ls.nvim')
   use('MunifTanjim/prettier.nvim')
+
+  -- Gitsigns
+  use('lewis6991/gitsigns.nvim')
 end)
 
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "ts_ls"},
 })
+require('gitsigns').setup()
