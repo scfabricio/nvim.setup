@@ -4,7 +4,14 @@ require('oil').setup({
   restore_win_options = true, -- Restaura as opções da janela ao sair do Oil
   skip_confirm_for_simple_edits = false, -- Confirmação antes de edições simples
   view_options = {
-    show_hidden = false, -- Ocultar arquivos/diretórios ocultos por padrão
+    show_hidden = true, -- Ocultar arquivos/diretórios ocultos por padrão
+  },
+  icons = {
+    file = "", -- Ícone de arquivo
+    folder = {
+      default = "", -- Ícone de pasta
+      open = "", -- Pasta aberta
+    },
   },
   keymaps = {
     ["<C-p>"] = "actions.preview", -- Atalhos de teclado personalizados
