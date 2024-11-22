@@ -1,5 +1,6 @@
 -- Setting up leader key
 vim.g.mapleader = ' ';
+vim.cmd("syntax on");
 
 local set = vim.opt;
 

@@ -37,6 +37,11 @@ require('packer').startup(function(use)
   use 'nvim-tree/nvim-web-devicons' -- Ícones para arquivos e diretórios
 
   use 'tpope/vim-fugitive' -- Fugitive
+
+  -- Prettier
+  use('neovim/nvim-lspconfig')
+  use('jose-elias-alvarez/null-ls.nvim')
+  use('MunifTanjim/prettier.nvim')
 end)
 
 require("mason").setup()
