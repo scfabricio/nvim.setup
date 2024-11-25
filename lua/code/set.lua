@@ -1,6 +1,7 @@
 -- Setting up leader key
 vim.g.mapleader = ' ';
 vim.cmd("syntax on");
+vim.opt.guicursor = "" -- Deixar o cursor sempre em formato de bloco
 
 local set = vim.opt;
 
