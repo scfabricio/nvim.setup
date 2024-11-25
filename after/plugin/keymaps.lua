@@ -2,8 +2,11 @@ vim.keymap.set('n', '<leader>r', ':source $MYVIMRC<CR>') -- Recarregar configura
 
 -- KeyMap Telescope
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>ps', function()
+  builtin.grep_string({ search = vim.fn.input("Grep For > ") })
+end, { desc = "Buscar por uma string com Telescope" })
+vim.keymap.set('n', '<leader>pS', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
@@ -18,3 +21,5 @@ vim.keymap.set("n", "<leader>gd", ":Gdiffsplit<CR>", { desc = "Git Diff" }) -- D
 
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
+vim.keymap.set("n", "<leader>]", ":vertical resize +5<CR>")
+vim.keymap.set("n", "<leader>[", ":vertical resize -5<CR>")
