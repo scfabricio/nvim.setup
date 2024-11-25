@@ -15,3 +15,6 @@ vim.keymap.set("n", "<leader>gps", ":Git push<CR>", { desc = "Git Push" }) -- Fa
 vim.keymap.set("n", "<leader>gpl", ":Git pull<CR>", { desc = "Git Pull" }) -- Fazer pull
 vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", { desc = "Git Blame" }) -- Blame
 vim.keymap.set("n", "<leader>gd", ":Gdiffsplit<CR>", { desc = "Git Diff" }) -- Diff
+
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })

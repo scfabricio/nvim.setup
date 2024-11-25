@@ -74,6 +74,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  LuaSnip = {
+    loaded = true,
+    path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/LuaSnip",
+    url = "https://github.com/L3MON4D3/LuaSnip"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -94,10 +99,25 @@ _G.packer_plugins = {
     path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
+  cmp_luasnip = {
+    loaded = true,
+    path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
   everforest = {
     loaded = true,
     path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/everforest",
     url = "https://github.com/sainnhe/everforest"
+  },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/friendly-snippets",
+    url = "https://github.com/rafamadriz/friendly-snippets"
+  },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
   },
   ["gruvbox-material"] = {
     loaded = true,
@@ -108,6 +128,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/lackluster.nvim",
     url = "https://github.com/slugbyte/lackluster.nvim"
+  },
+  ["lspkind.nvim"] = {
+    loaded = true,
+    path = "/Users/fabricio/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
+    url = "https://github.com/onsails/lspkind.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,

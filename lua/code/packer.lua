@@ -22,8 +22,14 @@ require('packer').startup(function(use)
     'hrsh7th/cmp-buffer', -- Fonte buffer para nvim-cmp
     'hrsh7th/cmp-path', -- Completar caminhos
     'hrsh7th/cmp-vsnip', -- Snippets
-    'hrsh7th/vim-vsnip' -- Snippets engine
+    'hrsh7th/vim-vsnip', -- Snippets engine
+    'onsails/lspkind.nvim', -- Ícones no autocomplete
   }
+
+-- LuaSnip e snippets
+  use 'L3MON4D3/LuaSnip'
+  use 'rafamadriz/friendly-snippets'
+  use 'saadparwaiz1/cmp_luasnip' -- Integração do LuaSnip com o nvim-cmp
 
   -- Oil
   use({
