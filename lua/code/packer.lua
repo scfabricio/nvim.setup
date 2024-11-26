@@ -26,7 +26,7 @@ require('packer').startup(function(use)
     'onsails/lspkind.nvim', -- Ícones no autocomplete
   }
 
--- LuaSnip e snippets
+  -- LuaSnip e snippets
   use 'L3MON4D3/LuaSnip'
   use 'rafamadriz/friendly-snippets'
   use 'saadparwaiz1/cmp_luasnip' -- Integração do LuaSnip com o nvim-cmp
@@ -51,6 +51,27 @@ require('packer').startup(function(use)
 
   -- Gitsigns
   use('lewis6991/gitsigns.nvim')
+
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end
+  }
+
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate' -- Atualiza parsers após instalar
+  }
+
+  use {
+    "windwp/nvim-ts-autotag",
+    requires = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end
+  }
 end)
 
 require("mason").setup()
@@ -58,3 +79,8 @@ require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "ts_ls"},
 })
 require('gitsigns').setup()
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "html", "javascript", "typescript", "tsx", "vue", "lua" }, -- Idiomas suportados
+  highlight = { enable = true },
+}
