@@ -26,6 +26,8 @@ require('packer').startup(function(use)
     'onsails/lspkind.nvim', -- Ícones no autocomplete
   }
 
+  use 'MunifTanjim/eslint.nvim'
+
   -- LuaSnip e snippets
   use 'L3MON4D3/LuaSnip'
   use 'rafamadriz/friendly-snippets'
