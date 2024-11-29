@@ -30,3 +30,4 @@ set.ttimeoutlen = 0
 set.updatetime = 250
 set.wildmenu = true
 set.wrap = true
+set.hlsearch = false
