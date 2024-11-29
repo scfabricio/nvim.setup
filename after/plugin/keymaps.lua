@@ -16,9 +16,8 @@ vim.keymap.set("n", "<leader>gc", ":Git commit<CR>", { desc = "Git Commit" }) --
 vim.keymap.set("n", "<leader>ga", ":Git add .<CR>", { desc = "Git Add All" }) -- Fazer add
 vim.keymap.set("n", "<leader>gps", ":Git push<CR>", { desc = "Git Push" }) -- Fazer push
 vim.keymap.set("n", "<leader>gpl", ":Git pull<CR>", { desc = "Git Pull" }) -- Fazer pull
-vim.keymap.set("n", "<leader>gbl", ":Git blame<CR>", { desc = "Git Blame" }) -- Blame
+vim.keymap.set("n", "<leader>gb", ":Git blame<CR>", { desc = "Git Blame" }) -- Blame
 vim.keymap.set("n", "<leader>gd", ":Gdiffsplit<CR>", { desc = "Git Diff" }) -- Diff
-vim.keymap.set("n", "<leader>gb", ":Git branch<CR>", { desc = "Abrir lista de branches" })
 
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
