@@ -38,6 +38,15 @@ lspconfig.ts_ls.setup({
 	},
 })
 
+lspconfig.tailwindcss.setup({
+    on_attach = function(client, bufnr)
+        -- Configurações opcionais, como mapeamentos
+        print("TailwindCSS Language Server conectado!")
+    end,
+    filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    root_dir = require("lspconfig").util.root_pattern("tailwind.config.js", "tailwind.config.cjs", "postcss.config.js", ".git"),
+})
+
 -- Cliente para autocompleta
 local cmp = require'cmp'
 local luasnip = require("luasnip")

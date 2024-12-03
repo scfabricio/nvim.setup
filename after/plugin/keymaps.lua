@@ -26,3 +26,4 @@ vim.keymap.set("n", "<leader>[", ":vertical resize -5<CR>")
 
 vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end)
 vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end)
+vim.keymap.set("n", "<leader>tp", ":TailwindToolsPreview<CR>", { desc = "Mostrar preview da classe Tailwind" })

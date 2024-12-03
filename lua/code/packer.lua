@@ -81,11 +81,25 @@ require('packer').startup(function(use)
       }
     end
   }
+
+  use({
+    "laytan/tailwind-tools.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("tailwind-tools").setup({
+        -- Configurações personalizadas
+        color_preview = "background", -- "foreground" ou "background"
+        mappings = {
+          hover = "K", -- Tecla para visualizar as cores
+        },
+      })
+    end
+  })
 end)
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "ts_ls"},
+  ensure_installed = { "lua_ls", "ts_ls", "tailwindcss" },
 })
 require('gitsigns').setup()
 
