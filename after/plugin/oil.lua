@@ -14,7 +14,8 @@ require('oil').setup({
     },
   },
   keymaps = {
-    ["<C-p>"] = "actions.preview", -- Atalhos de teclado personalizados
+    ["<C-p>"] = false,
+    ["<C-&>"] = "actions.preview", -- Atalhos de teclado personalizados
     ["<C-s>"] = "actions.select_vsplit",
     ["<C-t>"] = "actions.select_tab",
     ["<C-h>"] = "actions.toggle_hidden",

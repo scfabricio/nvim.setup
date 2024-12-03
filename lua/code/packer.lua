@@ -34,12 +34,7 @@ require('packer').startup(function(use)
   use 'saadparwaiz1/cmp_luasnip' -- Integração do LuaSnip com o nvim-cmp
 
   -- Oil
-  use({
-    "stevearc/oil.nvim",
-    config = function()
-      require("oil").setup()
-    end,
-  })
+  use 'stevearc/oil.nvim'
 
   use 'stevearc/oil.nvim' -- Plugin Oil
   use 'nvim-tree/nvim-web-devicons' -- Ícones para arquivos e diretórios
