@@ -69,6 +69,18 @@ require('packer').startup(function(use)
       require('nvim-ts-autotag').setup()
     end
   }
+
+  use {
+    'nvim-treesitter/nvim-treesitter-context',
+    requires = 'nvim-treesitter/nvim-treesitter', -- Treesitter é obrigatório
+    config = function()
+      require'treesitter-context'.setup{
+        enable = true, -- Habilita o contexto
+        max_lines = 3, -- Número máximo de linhas fixas
+        trim_scope = 'outer', -- Remove excesso de contexto se ultrapassar o limite
+      }
+    end
+  }
 end)
 
 require("mason").setup()
