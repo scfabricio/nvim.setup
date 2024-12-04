@@ -62,6 +62,18 @@ require('packer').startup(function(use)
     run = ':TSUpdate' -- Atualiza parsers após instalar
   }
 
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup({
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      })
+    end
+  }
+
+
   use {
     "windwp/nvim-ts-autotag",
     requires = { "nvim-treesitter/nvim-treesitter" },
