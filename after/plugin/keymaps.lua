@@ -27,3 +27,11 @@ vim.keymap.set("n", "<leader>[", ":vertical resize -5<CR>")
 vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end)
 vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end)
 vim.keymap.set("n", "<leader>tp", ":TailwindToolsPreview<CR>", { desc = "Mostrar preview da classe Tailwind" })
+
+vim.keymap.set("n", "<leader>y", "\"+y") -- Copia para o clipboard do sistema
+vim.keymap.set("v", "<leader>y", "\"+y") -- Copia para o clipboard do sistema (no modo visual)
+vim.keymap.set("n", "<leader>p", "\"+p") -- Cola do clipboard do sistema
+vim.keymap.set("v", "<leader>P", "\"_dP") -- Substitui um texto colado
+vim.keymap.set("n", "<leader>a", "gg<S-v>G") -- Seleciona todo o conteúdo do arquivo
+vim.keymap.set("n", "<leader>d", "\"_d") -- Deleta o texto para o registrador "black hole"
+vim.keymap.set("v", "<leader>d", "\"_d") -- Deleta o texto para o registrador "black hole" (no modo visual)
