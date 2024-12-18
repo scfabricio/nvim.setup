@@ -26,6 +26,8 @@ require('oil').setup({
 -- Atalho para abrir Oil no diretório atual
 vim.keymap.set("n", "<leader>o", ":Oil<CR>", { desc = "Abrir Oil no diretório atual" })
 
+vim.keymap.set("n", "X", "dd", { noremap = true, silent = true })
+
 -- Atalho para abrir Oil em um diretório específico
 vim.keymap.set("n", "<leader>O", function()
   local current_dir = vim.fn.getcwd() -- Obtém o diretório atual
