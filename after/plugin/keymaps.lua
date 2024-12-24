@@ -35,5 +35,7 @@ vim.keymap.set("v", "<leader>P", "\"_dP") -- Substitui um texto colado
 vim.keymap.set("n", "<leader>a", "gg<S-v>G") -- Seleciona todo o conteúdo do arquivo
 vim.keymap.set("n", "<leader>d", "\"_d") -- Deleta o texto para o registrador "black hole"
 vim.keymap.set("v", "<leader>d", "\"_d") -- Deleta o texto para o registrador "black hole" (no modo visual)
+vim.keymap.set("n", "<leader>d", "\"_c") -- Deleta o texto para o registrador "black hole"
+vim.keymap.set("v", "<leader>d", "\"_c") -- Deleta o texto para o registrador "black hole" (no modo visual)
 
 vim.keymap.set("n", "<leader>n", ":enew<CR>") -- Abre um novo buffer vazio
