@@ -8,6 +8,7 @@ require('packer').startup(function(use)
   use 'sainnhe/gruvbox-material'
   use 'slugbyte/lackluster.nvim'
   use 'sainnhe/everforest'
+  use "blazkowolf/gruber-darker.nvim"
 
   -- LCP
   use {
@@ -27,6 +28,8 @@ require('packer').startup(function(use)
   }
 
   use 'MunifTanjim/eslint.nvim'
+
+  use 'eandrju/cellular-automaton.nvim'
 
   -- LuaSnip e snippets
   use 'L3MON4D3/LuaSnip'
