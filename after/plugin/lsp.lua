@@ -47,6 +47,9 @@ lspconfig.tailwindcss.setup({
     root_dir = require("lspconfig").util.root_pattern("tailwind.config.js", "tailwind.config.cjs", "postcss.config.js", ".git"),
 })
 
+
+lspconfig.prismals.setup {}
+
 -- Cliente para autocompleta
 local cmp = require'cmp'
 local luasnip = require("luasnip")

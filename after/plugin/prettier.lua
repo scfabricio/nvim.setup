@@ -29,6 +29,9 @@ null_ls.setup({
       end, { buffer = bufnr, desc = "[lsp] format" })
     end
   end,
+  sources = {
+    null_ls.builtins.formatting.prismaFmt
+  }
 })
 
 local prettier = require("prettier")
@@ -50,3 +53,4 @@ prettier.setup({
     "yaml",
   },
 })
+

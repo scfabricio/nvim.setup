@@ -52,6 +52,9 @@ require('packer').startup(function(use)
   -- Gitsigns
   use('lewis6991/gitsigns.nvim')
 
+  -- Prisma highlight
+  use { "pantharshit00/vim-prisma", ft = "prisma" }
+
   use {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
