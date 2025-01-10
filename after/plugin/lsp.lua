@@ -21,6 +21,7 @@ lspconfig.ts_ls.setup({
 		-- Atalhos LSP
 		local bufopts = { noremap=true, silent=true, buffer=bufnr }
 		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts) -- Ir para definição
+		vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts) -- Ir para referêcia
 		vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)       -- Exibir documentação
 		vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts) -- Renomear
 		vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts) -- Ações de código
