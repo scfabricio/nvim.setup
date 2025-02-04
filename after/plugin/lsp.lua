@@ -25,7 +25,10 @@ lspconfig.ts_ls.setup({
 		vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)       -- Exibir documentação
 		vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts) -- Renomear
 		vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts) -- Ações de código
-    vim.keymap.set("n", "<leader>ai", vim.lsp.buf.code_action, { desc = "Code action (auto-import)" })
+    vim.keymap.set('n', '<leader>ai', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<leader>sh', '<cmd>lua vim.lsp.buf.signature_help()<CR>', bufopts)
+    vim.keymap.set('i', '<C-h>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', bufopts)
+    vim.keymap.set("i", "<C-space>", vim.lsp.buf.completion, bufopts)
 	end,
 
 	settings = {
@@ -87,5 +90,6 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
+    ["<C-space>"] = cmp.mapping.complete(), -- Ativa sugestões manualmente
   }),
 })
