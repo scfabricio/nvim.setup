@@ -42,6 +42,17 @@ lspconfig.ts_ls.setup({
 	},
 })
 
+-- css
+lspconfig.cssls.setup({
+  capabilities = require("cmp_nvim_lsp").default_capabilities(), -- Ativa autocompletar avançado
+  on_attach = function(client, bufnr)
+    local opts = { noremap=true, silent=true, buffer=bufnr }
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)             -- Mostrar documentação
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)       -- Ir para definição
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)   -- Renomear variável
+  end,
+})
+
 lspconfig.tailwindcss.setup({
     on_attach = function(client, bufnr)
         -- Configurações opcionais, como mapeamentos
