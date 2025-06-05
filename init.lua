@@ -1,2 +1,3 @@
 require("code/set");
-require("code/packer");
+require("plugins.lazy")
+require("lazy").setup("plugins.plugins")
