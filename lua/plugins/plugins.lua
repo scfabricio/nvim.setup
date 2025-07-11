@@ -23,66 +23,87 @@ return {
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" },
+      local function on_attach(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+
+        local opts = { noremap=true, silent=true, buffer=bufnr }
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '<leader>ai', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '<leader>sh', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("i", "<C-space>", vim.lsp.buf.completion, opts)
+      end
+
+      local servers = {
+        ts_ls = {
+          capabilities = capabilities,
+          on_attach = on_attach,
+          settings = {
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayVariableTypeHints = true,
+              },
             },
           },
         },
-      })
-
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-
-          local opts = { noremap=true, silent=true, buffer=bufnr }
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-          vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-          vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', '<leader>ai', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', '<leader>sh', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set("i", "<C-space>", vim.lsp.buf.completion, opts)
-        end,
-        settings = {
-          typescript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayVariableTypeHints = true,
+        lua_ls = {
+          settings = {
+            Lua = {
+              runtime = {
+                -- Usa o LuaJIT que é o runtime do Neovim
+                version = 'LuaJIT',
+              },
+              diagnostics = {
+                -- Reconhece a variável global 'vim'
+                globals = { 'vim' },
+              },
+              workspace = {
+                -- Faz o LSP reconhecer as bibliotecas do Neovim
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+              },
+              telemetry = {
+                -- Desabilita envio de dados
+                enable = false,
+              },
             },
           },
         },
-      })
+        cssls = {
+          capabilities = capabilities,
+          on_attach = on_attach,
+        },
+        tailwindcss = {
+          capabilities = capabilities,
+          on_attach = function(client, bufnr)
+            print("TailwindCSS Language Server conectado!")
+          end,
+          filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+          root_dir = require("lspconfig").util.root_pattern(
+          "tailwind.config.js", "tailwind.config.cjs", "postcss.config.js", ".git"
+          ),
+        },
+        prisma = {
+          capabilities = capabilities
+        }
+      }
 
-      lspconfig.cssls.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          local opts = { noremap=true, silent=true, buffer=bufnr }
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+      -- Setup genérico com fallback
+      require("mason-lspconfig").setup_handlers {
+        function(server_name)
+          local config = servers[server_name] or {
+            capabilities = capabilities,
+            on_attach = on_attach,
+          }
+          lspconfig[server_name].setup(config)
         end,
-      })
-
-      lspconfig.tailwindcss.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          print("TailwindCSS Language Server conectado!")
-        end,
-        filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        root_dir = require("lspconfig").util.root_pattern(
-        "tailwind.config.js", "tailwind.config.cjs", "postcss.config.js", ".git"
-        ),
-      })
-
-      lspconfig.prismals.setup({ capabilities = capabilities })
+      }
     end,
   },
 
@@ -153,26 +174,7 @@ return {
         ensure_installed = { "lua_ls", "ts_ls", "tailwindcss", "cssls" },
         automatic_installation = false,
       })
-      local lspconfig = require("lspconfig")
-      require("mason-lspconfig").setup_handlers {
-        function(server_name)
-          lspconfig[server_name].setup {}
-        end,
-      }
     end,
-  },
-
-  -- Autocomplete
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-vsnip",
-      "hrsh7th/vim-vsnip",
-      "onsails/lspkind.nvim",
-    },
   },
 
   { "MunifTanjim/eslint.nvim" },
