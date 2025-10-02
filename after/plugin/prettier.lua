@@ -30,7 +30,7 @@ null_ls.setup({
     end
   end,
   sources = {
-    null_ls.builtins.formatting.prismaFmt
+    -- Use prettier para formatar se necessário
   }
 })
 

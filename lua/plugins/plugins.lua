@@ -1,5 +1,5 @@
 return {
-  -- 🔧 Necessário para telescope, null-ls, etc.
+  -- 🔧 Necessário para telescope, none-ls, etc.
   { "nvim-lua/plenary.nvim" },
 
   -- Telescope
@@ -16,11 +16,42 @@ return {
   { "sainnhe/everforest" },
   { "blazkowolf/gruber-darker.nvim" },
 
+  -- Mason (deve vir primeiro)
+  {
+    "williamboman/mason.nvim",
+    priority = 1000,
+    config = function()
+      require("mason").setup({
+        ui = {
+          border = "rounded",
+        },
+      })
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    priority = 999,
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "lua_ls", "ts_ls", "tailwindcss", "cssls" },
+        automatic_installation = true,
+      })
+    end,
+  },
+
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    priority = 998,
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = function()
-      local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local function on_attach(client, bufnr)
@@ -39,37 +70,56 @@ return {
         vim.keymap.set("i", "<C-space>", vim.lsp.buf.completion, opts)
       end
 
+      -- Função para encontrar root directory usando a nova API ou fallback
+      local function find_root_dir(patterns)
+        if vim.fs.root then
+          return vim.fs.root(0, patterns)
+        elseif vim.fs.find then
+          local found = vim.fs.find(patterns, { upward = true })
+          return found[1] and vim.fs.dirname(found[1]) or nil
+        else
+          -- Fallback para versões mais antigas
+          return vim.fn.getcwd()
+        end
+      end
+
+      -- Configuração dos servidores LSP
       local servers = {
         ts_ls = {
           capabilities = capabilities,
           on_attach = on_attach,
           settings = {
+            javascript = {
+              suggest = { autoImports = true },
+            },
             typescript = {
+              suggest = { autoImports = true },
               inlayHints = {
                 includeInlayParameterNameHints = "all",
                 includeInlayVariableTypeHints = true,
               },
             },
           },
+          flags = {
+            debounce_text_changes = 100,
+          },
         },
         lua_ls = {
+          capabilities = capabilities,
+          on_attach = on_attach,
           settings = {
             Lua = {
               runtime = {
-                -- Usa o LuaJIT que é o runtime do Neovim
                 version = 'LuaJIT',
               },
               diagnostics = {
-                -- Reconhece a variável global 'vim'
                 globals = { 'vim' },
               },
               workspace = {
-                -- Faz o LSP reconhecer as bibliotecas do Neovim
                 library = vim.api.nvim_get_runtime_file("", true),
                 checkThirdParty = false,
               },
               telemetry = {
-                -- Desabilita envio de dados
                 enable = false,
               },
             },
@@ -82,28 +132,28 @@ return {
         tailwindcss = {
           capabilities = capabilities,
           on_attach = function(client, bufnr)
+            on_attach(client, bufnr)
             print("TailwindCSS Language Server conectado!")
           end,
           filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-          root_dir = require("lspconfig").util.root_pattern(
-          "tailwind.config.js", "tailwind.config.cjs", "postcss.config.js", ".git"
-          ),
-        },
-        prisma = {
-          capabilities = capabilities
+          root_dir = find_root_dir({ "tailwind.config.js", "tailwind.config.cjs", "postcss.config.js", ".git" }),
         }
       }
 
-      -- Setup genérico com fallback
-      require("mason-lspconfig").setup_handlers {
-        function(server_name)
-          local config = servers[server_name] or {
-            capabilities = capabilities,
-            on_attach = on_attach,
-          }
+      -- Setup usando a nova API vim.lsp.config se disponível, senão fallback para lspconfig
+      if vim.lsp.config then
+        -- Nova API do Neovim 0.11+
+        for server_name, config in pairs(servers) do
+          vim.lsp.config[server_name] = config
+          vim.lsp.enable(server_name)
+        end
+      else
+        -- Fallback para versões anteriores usando lspconfig
+        local lspconfig = require("lspconfig")
+        for server_name, config in pairs(servers) do
           lspconfig[server_name].setup(config)
-        end,
-      }
+        end
+      end
     end,
   },
 
@@ -157,26 +207,6 @@ return {
       })
     end,
   },
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "neovim/nvim-lspconfig",
-    },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "tailwindcss", "cssls" },
-        automatic_installation = false,
-      })
-    end,
-  },
-
   { "MunifTanjim/eslint.nvim" },
   { "eandrju/cellular-automaton.nvim" },
 
@@ -191,7 +221,7 @@ return {
   { "tpope/vim-fugitive" },
 
   -- Formatting
-  { "jose-elias-alvarez/null-ls.nvim" },
+  { "nvimtools/none-ls.nvim" },
   { "MunifTanjim/prettier.nvim" },
 
   -- Git
@@ -201,8 +231,6 @@ return {
       require("gitsigns").setup()
     end,
   },
-
-  { "pantharshit00/vim-prisma", ft = "prisma" },
 
   -- Auto pairs
   {

@@ -4,7 +4,10 @@ vim.keymap.set('n', '<leader>r', ':source $MYVIMRC<CR>') -- Recarregar configura
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>',function() builtin.find_files({ hidden = true }) end, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>ps', function()
-  builtin.grep_string({ search = vim.fn.input("Grep For > ") })
+  builtin.grep_string({ 
+    search = vim.fn.input("Grep For > "),
+    cwd = vim.loop.cwd(),  -- raiz do nvim
+  })
 end, { desc = "Buscar por uma string com Telescope" })
 vim.keymap.set('n', '<leader>pS', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
@@ -39,3 +42,6 @@ vim.keymap.set("n", "<leader>d", "\"_c") -- Deleta o texto para o registrador "b
 vim.keymap.set("v", "<leader>d", "\"_c") -- Deleta o texto para o registrador "black hole" (no modo visual)
 
 vim.keymap.set("n", "<leader>n", ":enew<CR>") -- Abre um novo buffer vazio
+
+vim.keymap.set("n", "<leader>xd", ":Telescope diagnostics<cr>",
+  { desc = "Lista todos os diagnostics do projeto" })

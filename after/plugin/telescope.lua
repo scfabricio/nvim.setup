@@ -8,8 +8,10 @@ require('telescope').setup({
 			'--with-filename',
 			'--line-number',
 			'--column',
+      '--hidden',
 			'--smart-case',
-			'--glob=!node_modules/**' -- Ignora `node_modules` ao usar live_grep
+			'--glob=!node_modules/**', -- Ignora `node_modules` ao usar live_grep
+      '--glob=!.git/**'
 		},
 	},
 });
